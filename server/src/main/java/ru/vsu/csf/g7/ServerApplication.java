@@ -1,4 +1,4 @@
-package ru.vsu.csf.g7.server;
+package ru.vsu.csf.g7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

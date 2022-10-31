@@ -1,4 +1,4 @@
-package ru.vsu.csf.g7.server;
+package ru.vsu.csf.g7;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

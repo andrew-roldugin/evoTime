@@ -1,4 +1,4 @@
-package ru.vsu.csf.g7.server;
+package ru.vsu.csf.g7;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
