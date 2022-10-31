@@ -2,8 +2,8 @@ FROM openjdk:17-alpine3.14
 
 WORKDIR /app
 
-COPY ./pom.xml ./mvnw  ./
 COPY ./.mvn .mvn
+COPY ./pom.xml ./mvnw  ./
 RUN ./mvnw dependency:resolve
 
 COPY . .

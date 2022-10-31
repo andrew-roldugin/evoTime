@@ -1,4 +1,4 @@
-package ru.csf.vsu.g7.evotime.services;
+package ru.vsu.csf.g7.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
