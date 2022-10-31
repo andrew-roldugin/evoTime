@@ -1,13 +1,13 @@
-package ru.csf.vsu.g7.evotime.controllers;
+package ru.vsu.csf.g7.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.csf.vsu.g7.evotime.services.TestService;
+import ru.vsu.csf.g7.services.TestService;
 
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/api/test")
 public class TestController {
 
     @Autowired
