@@ -1,6 +1,8 @@
 package ru.vsu.csf.g7.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +20,12 @@ public class TestController {
     }
 
     @GetMapping(value = "/hello")
-    public String hello() {
-        return "Hello";
+    public ResponseEntity<String> hello() {
+        return new ResponseEntity<String>("Hello", HttpStatus.OK);
     }
 
     @GetMapping(value = "/test-db")
-    public String testDB() {
-        return testService.getCurrDate().toString();
+    public ResponseEntity<String> testDB() {
+        return new ResponseEntity<String>(testService.getCurrDate().toString(), HttpStatus.OK);
     }
 }
