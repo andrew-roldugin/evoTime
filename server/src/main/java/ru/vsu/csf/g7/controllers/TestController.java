@@ -24,8 +24,8 @@ public class TestController {
         return new ResponseEntity<String>("Hello", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/test-db")
+    @GetMapping(value = "/connectToDB")
     public ResponseEntity<String> testDB() {
-        return new ResponseEntity<String>(testService.getCurrDate().toString(), HttpStatus.OK);
+        return new ResponseEntity<String>(testService.getCurrDateTime().toString(), HttpStatus.OK);
     }
 }

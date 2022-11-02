@@ -40,10 +40,12 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint())
 //                .and().requiresChannel().anyRequest().requiresSecure()
                 .and().authorizeRequests().antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
-                .antMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
-                .mvcMatchers(HttpMethod.GET, SecurityConstants.OPEN_URLS).permitAll()
+                .antMatchers(SecurityConstants.OPEN_URLS).permitAll()
+//                .antMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
+//                .mvcMatchers(HttpMethod.GET, SecurityConstants.OPEN_URLS).permitAll()
+//                .mvcMatchers(HttpMethod.OPTIONS, SecurityConstants.OPEN_URLS).permitAll()
                 .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

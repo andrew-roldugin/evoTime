@@ -9,10 +9,10 @@ function App() {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        axios('http://server:8888/api/test/test-db', {
+        axios('http://localhost:5555/api/test/connectToDB', {
             method: "get",
             headers: {
-                'Content-Type': 'text/plain',
+                'Content-Type': 'text/plain'
             },
             auth: {
                 password: "1234",
@@ -30,7 +30,7 @@ function App() {
 
                     {date.length > 0
                         ? <p>Соединение с сервером установлено <FormattedDate value={date}
-                                                                              dateStyle={"long"}></FormattedDate></p>
+                                                                              dateStyle={"long"} timeStyle={"long"}></FormattedDate></p>
                         : <p>Подключение...</p>}
                     <a
                         className="App-link"

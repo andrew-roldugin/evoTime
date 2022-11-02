@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Service
 public class TestService {
@@ -12,7 +13,7 @@ public class TestService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public Date getCurrDate() {
-        return jdbcTemplate.queryForObject("select current_date", Date.class);
+    public Instant getCurrDateTime() {
+        return jdbcTemplate.queryForObject("select current_timestamp", Instant.class);
     }
 }

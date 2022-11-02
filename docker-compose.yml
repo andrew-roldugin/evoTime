@@ -14,20 +14,24 @@ services:
     build: server/
     restart: on-failure
     env_file: ./.env
+    expose:
+      - $SPRING_APP_DOCKER_PORT
     environment:
       APP_VER: 0.1
-      spring.datasource.url : "jdbc:postgresql://postgres_db:$PG_DOCKER_PORT/$PG_DATABASE_NAME"
-      spring.datasource.password : "$PG_PASSWORD"
-      spring.datasource.username : "$PG_USER"
-      spring.jpa.properties.hibernate.dialect : "org.hibernate.dialect.PostgresPlusDialect"
-      spring.jpa.hibernate.ddl-auto : "update"
-      server.port : "$SPRING_APP_DOCKER_PORT"
+      spring.datasource.url: "jdbc:postgresql://postgres_db:$PG_DOCKER_PORT/$PG_DATABASE_NAME"
+      spring.datasource.password: "$PG_PASSWORD"
+      spring.datasource.username: "$PG_USER"
+      spring.jpa.properties.hibernate.dialect: "org.hibernate.dialect.PostgresPlusDialect"
+      spring.jpa.hibernate.ddl-auto: "update"
+      server.port: "$SPRING_APP_DOCKER_PORT"
     ports:
       - $SPRING_APP_LOCAL_PORT:$SPRING_APP_DOCKER_PORT
     depends_on:
       - postgres_db
   client:
     build: client/
+    expose:
+      - $REACT_APP_DOCKER_PORT
     restart: on-failure
     env_file: ./.env
     ports:
