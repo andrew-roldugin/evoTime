@@ -4,4 +4,4 @@ WORKDIR .
 COPY . .
 RUN npm install
 ENTRYPOINT ["npm", "run", "start"]
-EXPOSE ${REACT_APP_DOCKER_PORT}
+EXPOSE 3000

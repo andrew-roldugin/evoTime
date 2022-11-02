@@ -12,4 +12,4 @@ CMD ./mvnw clean package -DskipTests
 
 ENTRYPOINT ["java", "-jar", "./target/server-0.0.1.war"]
 
-EXPOSE ${SPRING_APP_DOCKER_PORT}
+EXPOSE 8888

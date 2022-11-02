@@ -9,7 +9,7 @@ function App() {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        axios('http://localhost:8081/api/test/test-db', {
+        axios('http://server:8888/api/test/test-db', {
             method: "get",
             headers: {
                 'Content-Type': 'text/plain',
