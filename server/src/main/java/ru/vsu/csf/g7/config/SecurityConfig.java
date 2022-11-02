@@ -19,8 +19,8 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.vsu.csf.g7.services.CustomUserDetailsService;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(
         jsr250Enabled = true,
         prePostEnabled = true,
@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors().and().csrf().disable()
+                .csrf().disable().cors().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint())
 //                .and().requiresChannel().anyRequest().requiresSecure()
                 .and().authorizeRequests().antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
