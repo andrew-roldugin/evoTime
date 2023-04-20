@@ -1,6 +1,7 @@
 package ru.vsu.csf.g7.services;
 
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.internal.log.SubSystemLogging;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

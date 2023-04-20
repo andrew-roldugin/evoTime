@@ -6,24 +6,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authorization.AuthenticatedAuthorizationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.vsu.csf.g7.services.CustomUserDetailsService;
 
 @EnableWebSecurity(debug = false)
-@EnableGlobalMethodSecurity(
+@EnableMethodSecurity(
         jsr250Enabled = true,
         prePostEnabled = true,
         securedEnabled = true)
+@Configuration
 public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -39,9 +38,9 @@ public class SecurityConfig {
                 .csrf().disable().cors().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint())
 //                .and().requiresChannel().anyRequest().requiresSecure()
-                .and().authorizeRequests().antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
-                .antMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
-                .mvcMatchers(HttpMethod.GET, SecurityConstants.OPEN_URLS).permitAll()
+                .and().authorizeHttpRequests().requestMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
+                .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
+                .requestMatchers(HttpMethod.GET, SecurityConstants.OPEN_URLS).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 
