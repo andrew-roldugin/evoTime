@@ -35,9 +35,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf().disable().cors().and()
+                .csrf().disable()
+                .cors().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint())
-//                .and().requiresChannel().anyRequest().requiresSecure()
+                .and().requiresChannel().anyRequest().requiresSecure()
                 .and().authorizeHttpRequests().requestMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
                 .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityConstants.OPEN_URLS).permitAll()

@@ -9,7 +9,7 @@ import ru.vsu.csf.g7.entity.User;
 @Configuration
 @EnableJpaAuditing
 public class AuditorConfig {
-    @Bean
+
     public AuditorAware<User> auditorProvider() {
         return new AuditorAwareImpl();
     }
