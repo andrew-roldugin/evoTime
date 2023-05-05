@@ -16,4 +16,11 @@ public class Schedule extends BaseEntity<Integer> {
     @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<Lesson> lessons;
+
+    @Column
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id", referencedColumnName = "flex_value_id")
+    private FlexValue status;
 }
