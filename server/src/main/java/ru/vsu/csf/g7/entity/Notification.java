@@ -27,23 +27,3 @@ public class Notification extends BaseEntity<Long> {
 }
 
 
-@Entity
-@Table(name = "notification_assignments")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@AttributeOverride(name = "id", column = @Column(name = "assignment_id", nullable = false, unique = true))
-class NotificationAssignment extends BaseEntity<Long> {
-
-    @ManyToOne
-    @JoinColumn(name = "notification_id")
-    private Notification notification;
-
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id")
-    private User assignee;
-
-    @Column
-    private boolean read = false;
-}

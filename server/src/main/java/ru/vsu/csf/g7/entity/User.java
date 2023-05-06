@@ -35,7 +35,7 @@ public class User extends BaseEntity<Integer> implements UserDetails {
     private String login;
 
     @OneToOne
-    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JoinColumn(name = "profile_id")
     private UserProfile profile;
 
     @ManyToMany

@@ -25,23 +25,3 @@ public class Subject extends BaseEntity<Long> {
     private SubjectDetails info;
 }
 
-@Entity
-@Table
-class SubjectDetails {
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "test_form_id", referencedColumnName = "flex_value_id")
-    private FlexValue testForm;
-
-    @ManyToOne
-    @JoinColumn(name = "semester_id")
-    private Semester semester;
-
-    @OneToOne
-    @JoinColumn(name = "flex_values_set_id")
-    private FlexValuesSet totalHours;
-
-}

@@ -18,12 +18,12 @@ public class Lesson extends BaseEntity<Long> {
     @JoinColumn(name = "lecturer_id", nullable = false)
     private Lecturer lecturer;
 
-    @ManyToMany
-    @JoinTable(name = "assigned_lessons",
-            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"))
-    @JsonManagedReference
-    private List<StudentGroup> assignedGroups;
+//    @ManyToMany
+//    @JoinTable(name = "assigned_lessons",
+//            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id"),
+//            inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id"))
+//    @JsonManagedReference
+//    private List<StudentGroup> assignedGroups;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "time_id", referencedColumnName = "id")
