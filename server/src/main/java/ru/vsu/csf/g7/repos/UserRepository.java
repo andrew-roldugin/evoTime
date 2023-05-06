@@ -13,4 +13,6 @@ public interface UserRepository extends CrudRepository<User, Integer>,
         PagingAndSortingRepository<User, Integer> {
 
     Optional<User> getUserByLogin(String login);
+
+    boolean existsUserByLogin(String login);
 }

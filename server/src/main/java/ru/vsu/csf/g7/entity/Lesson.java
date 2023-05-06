@@ -33,7 +33,7 @@ public class Lesson extends BaseEntity<Long> {
     @JoinColumn(name = "lesson_type_id", referencedColumnName = "flex_value_id")
     private FlexValue lessonType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "room_id")
     @JsonManagedReference
     private Classroom classroom;

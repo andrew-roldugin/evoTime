@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.HashSet;
 
-@Entity
+//@Entity
 @Table(name = "notifications")
 @Getter
 @Setter
@@ -17,7 +18,7 @@ import java.util.Collection;
 @AttributeOverride(name = "id", column = @Column(name = "notification_id", nullable = false, unique = true))
 public class Notification extends BaseEntity<Long> {
     @OneToMany(mappedBy = "notification", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Collection<NotificationAssignment> notificationAssignments;
+    private final Collection<NotificationAssignment> notificationAssignments = new HashSet<>();
 
     @Column
     private String title;

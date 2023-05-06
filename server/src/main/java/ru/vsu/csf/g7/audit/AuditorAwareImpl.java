@@ -8,22 +8,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.vsu.csf.g7.entity.User;
 import ru.vsu.csf.g7.repos.UserRepository;
+import ru.vsu.csf.g7.services.UserService;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Service
 public class AuditorAwareImpl implements AuditorAware<User> {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public Optional<User> getCurrentAuditor() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return userRepository.getUserByLogin("service");
+            return userService.getUserByLogin("service");
         } else {
             val user = (User) authentication.getPrincipal();
-            return userRepository.findById(user.getId());
+            return Optional.ofNullable(userService.getUserById(user.getId()));
         }
     }
 }
