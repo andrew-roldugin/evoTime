@@ -1,15 +1,7 @@
 package ru.vsu.csf.g7;
 
-import org.springframework.aop.interceptor.PerformanceMonitorInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.access.PermissionEvaluator;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.vote.RoleVoter;
-import org.springframework.security.authorization.AuthorityAuthorizationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-
-import java.security.Permission;
 
 @SpringBootApplication
 public class ServerApplication {

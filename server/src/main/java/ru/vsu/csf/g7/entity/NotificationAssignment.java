@@ -10,8 +10,6 @@ import lombok.Setter;
 @Table(name = "notification_assignments")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "assignment_id", nullable = false, unique = true))
 class NotificationAssignment extends BaseEntity<Long> {
 
@@ -20,7 +18,7 @@ class NotificationAssignment extends BaseEntity<Long> {
     private Notification notification;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id")
+    @JoinColumn(name = "assignee_id", referencedColumnName = "user_id")
     private User assignee;
 
     @Column

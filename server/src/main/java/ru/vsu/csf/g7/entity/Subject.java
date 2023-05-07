@@ -12,16 +12,19 @@ import lombok.Setter;
 public class Subject extends BaseEntity<Long> {
     @Column
     private String code;
+
     @Column(nullable = false)
     private String name;
+
     @Column
     private String printableName;
+
     @ManyToOne
     @JoinColumn(name = "plan_id")
     private Plan plan;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(referencedColumnName = "id")
     private SubjectDetails info;
 }
 

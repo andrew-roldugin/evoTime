@@ -9,12 +9,10 @@ import lombok.Setter;
 import java.util.Collection;
 import java.util.HashSet;
 
-//@Entity
+@Entity
 @Table(name = "notifications")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "notification_id", nullable = false, unique = true))
 public class Notification extends BaseEntity<Long> {
     @OneToMany(mappedBy = "notification", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

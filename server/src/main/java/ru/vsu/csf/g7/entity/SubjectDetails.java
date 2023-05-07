@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Setter
 class SubjectDetails extends AbstractPersistable<Long> {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne

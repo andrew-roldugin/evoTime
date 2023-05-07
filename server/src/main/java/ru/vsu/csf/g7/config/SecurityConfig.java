@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.vsu.csf.g7.services.CustomUserDetailsService;
 
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 @EnableMethodSecurity(
         jsr250Enabled = true,
         prePostEnabled = true,

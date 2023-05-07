@@ -3,6 +3,7 @@ package ru.vsu.csf.g7.services;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -38,13 +39,15 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-//    public User createUser(SignupRequest newUser) {
+    public User createUser(SignupRequest newUser) {
+        return null;
+//        Permission p = BasePermission.ADMINISTRATION;
+
 //        User user = new User();
 //        user.setEmail(newUser.getEmail());
 //        user.setLogin(newUser.getLogin());
 //        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
 //
-//        Permission p = BasePermission.ADMINISTRATION;
 //
 //        if (newUser.getSecretKey().equals(secretKey) && newUser.getRole() != null) {
 //            Role role = roleRepository.findByRole(newUser.getRole())
@@ -70,7 +73,7 @@ public class UserService {
 //        } catch (Exception e) {
 //            throw new ApiException("Неизвестная ошибка при регистрации");
 //        }
-//    }
+    }
 
     public User getCurrentUser(Principal principal) throws UserNotFoundException {
         return getUserByPrincipal(principal);
@@ -115,7 +118,9 @@ public class UserService {
     }
 
     public void removeUserById(Integer id) {
-        userRepository.deleteById(id);
+        userRepository.findById(id).ifPresentOrElse(user -> user.setAccountDeleted(true), () -> {
+            throw new ApiException("Неизвестная ошибка при обновлении пользователя");
+        });
     }
 
     public Optional<User> getUserByLogin(String login) {
