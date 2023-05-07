@@ -15,6 +15,9 @@ public class UserToken extends BaseEntity<Long> {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column
+    private String fingerprint;
+
     @Column(name = "refresh_token", nullable = false, length = 500)
     private String refreshToken;
 }

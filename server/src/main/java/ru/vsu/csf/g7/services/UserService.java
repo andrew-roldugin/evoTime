@@ -10,19 +10,16 @@ import org.springframework.util.StringUtils;
 import ru.vsu.csf.g7.entity.User;
 import ru.vsu.csf.g7.exception.ApiException;
 import ru.vsu.csf.g7.exception.LoginAlreadyInUseException;
+import ru.vsu.csf.g7.exception.UserAlreadyExistsException;
 import ru.vsu.csf.g7.exception.UserNotFoundException;
 import ru.vsu.csf.g7.payload.request.SignupRequest;
 import ru.vsu.csf.g7.payload.request.UpdateUserRequest;
-import ru.vsu.csf.g7.repos.RoleRepository;
 import ru.vsu.csf.g7.repos.UserRepository;
 
 import javax.validation.Valid;
 import java.security.Permission;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -30,49 +27,36 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserService(UserRepository usersRepository, BCryptPasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserService(UserRepository usersRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
     }
 
     public User createUser(SignupRequest newUser) {
-        return null;
-//        Permission p = BasePermission.ADMINISTRATION;
+        Optional<User> userByLoginOrEmail = userRepository.findUserByLoginOrEmail(newUser.getLogin(), newUser.getEmail());
+        if (userByLoginOrEmail.isPresent()) {
+            User u = userByLoginOrEmail.get();
+            if (u.getEmail().equals(newUser.getEmail()))
+                throw new UserAlreadyExistsException("c почтой", newUser.getEmail());
+            if (u.getLogin().equals(newUser.getLogin()))
+                throw new UserAlreadyExistsException(newUser.getEmail());
+        }
 
-//        User user = new User();
-//        user.setEmail(newUser.getEmail());
-//        user.setLogin(newUser.getLogin());
-//        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-//
-//
-//        if (newUser.getSecretKey().equals(secretKey) && newUser.getRole() != null) {
-//            Role role = roleRepository.findByRole(newUser.getRole())
-//                    .orElse(roleRepository.findById(2L).get());
-//            user.setRole(role);
-//        } else
-//            user.setRole(roleRepository.findByRole(ERole.ROLE_USER).get());
-//
-//        Optional<User> res;
-//        String msg = "";
-//        if ((res = userRepository.findByLoginOrEmail(newUser.getLogin(), newUser.getEmail())).isPresent()) {
-//            User u = res.get();
-//            if (u.getEmail().equals(newUser.getEmail()))
-//                msg += "Такой email уже занят\n";
-//            if (u.getLogin().equals(newUser.getLogin()))
-//                msg += "Логин уже занят\n";
-//            throw new ApiException(msg);
-//        }
-//
-//        try {
-//            log.info("Сохранение пользователя в базу {}", newUser.getLogin());
-//            return userRepository.save(user);
-//        } catch (Exception e) {
-//            throw new ApiException("Неизвестная ошибка при регистрации");
-//        }
+        User user = new User();
+        user.setEmail(newUser.getEmail());
+        user.setLogin(newUser.getLogin());
+        user.setName(newUser.getName());
+        user.setRole(newUser.getRole());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+        try {
+            log.debug("Сохранение пользователя в базу {}", newUser.getLogin());
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new ApiException("Неизвестная ошибка при регистрации");
+        }
     }
 
     public User getCurrentUser(Principal principal) throws UserNotFoundException {
@@ -125,5 +109,9 @@ public class UserService {
 
     public Optional<User> getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.getUsersBy();
     }
 }

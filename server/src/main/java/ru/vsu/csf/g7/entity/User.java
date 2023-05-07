@@ -34,26 +34,32 @@ public class User extends BaseEntity<Integer> implements UserDetails {
     @Column(name = "login", nullable = false, unique = true, length = 50)
     private String login;
 
-    @OneToOne
-    @JoinColumn(name = "profile_id")
-    private UserProfile profile;
+//    @OneToOne
+//    @JoinColumn(name = "profile_id")
+//    private UserProfile profile;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "role_id"))
-    private final Collection<Role> roles = new HashSet<>();
+    @Column(name = "name", nullable = false)
+    private String name;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "users_roles",
+//            joinColumns = @JoinColumn(
+//                    name = "user_id", referencedColumnName = "user_id"),
+//            inverseJoinColumns = @JoinColumn(
+//                    name = "role_id", referencedColumnName = "role_id"))
+//    private final Collection<Role> roles = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private ERole role;
 
 
-    @ManyToMany
-    @JoinTable(name = "allowed_functions",
-            joinColumns = @JoinColumn(referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "function_id"))
-    @JsonManagedReference
-    private final Collection<Function> functions = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(name = "allowed_functions",
+//            joinColumns = @JoinColumn(referencedColumnName = "user_id"),
+//            inverseJoinColumns = @JoinColumn(referencedColumnName = "function_id"))
+//    @JsonManagedReference
+//    private final Collection<Function> functions = new HashSet<>();
 
     @Column(name = "is_locked")
     private boolean isAccountLocked = false;
@@ -64,9 +70,10 @@ public class User extends BaseEntity<Integer> implements UserDetails {
     @Override
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(r -> new SimpleGrantedAuthority(r.getRoleName()))
-                .collect(Collectors.toList());
+        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+//        return this.roles.stream()
+//                .map(r -> new SimpleGrantedAuthority(r.getRoleName()))
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -99,7 +106,7 @@ public class User extends BaseEntity<Integer> implements UserDetails {
         return !isAccountDeleted;
     }
 
-    public void addRole(Role r){
-        this.roles.add(r);
-    }
+//    public void addRole(Role r){
+//        this.roles.add(r);
+//    }
 }

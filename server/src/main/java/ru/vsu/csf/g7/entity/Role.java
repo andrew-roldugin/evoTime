@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.util.Collection;
 
-@Entity
+//@Entity
 @Table(name = "roles")
 @Getter
 @Setter

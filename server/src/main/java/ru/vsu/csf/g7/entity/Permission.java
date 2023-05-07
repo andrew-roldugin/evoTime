@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 
 import java.util.Collection;
 
-@Entity
+//@Entity
 @Table(name = "permissions")
 @Getter
 @Setter
